@@ -70,7 +70,6 @@ dependencies {
     kapt Dependencies.glideCompiler
 
     // Firebase
-    implementation Dependencies.firebaseAnalytics
     implementation Dependencies.firebaseCrashlytics
 
 
