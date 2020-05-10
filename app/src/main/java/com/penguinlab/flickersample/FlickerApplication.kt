@@ -7,6 +7,7 @@ import com.penguinlab.flickersample.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import timber.log.Timber
 import timber.log.Timber.DebugTree
 import timber.log.Timber.plant
 import javax.inject.Inject
@@ -23,7 +24,10 @@ class FlickerApplication : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-
+        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
+            // do something here - log to file and upload to    server/close resources/delete files...
+            Timber.e(throwable)
+        }
         DaggerAppComponent
             .factory()
             .create(this)
