@@ -1,5 +1,5 @@
 object Configs {
-    val applicationId = "com.penguinlab.kriptotracker"
+    val applicationId = "com.penguinlab.flickersample"
     val compileSdkVersion = 29
     val minSdkVersion = 19
     val targetSdkVersion = 29
