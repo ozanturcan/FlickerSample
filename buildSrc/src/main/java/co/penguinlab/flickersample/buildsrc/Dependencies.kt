@@ -41,6 +41,7 @@ object Dependencies {
     val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
     val playServices = "com.google.android.gms:play-services-plus:${Versions.playServicesVersion}"
     val legacySupport = "androidx.legacy:legacy-support-v4:${Versions.legacySupportVersion}"
+    val gsonConverter = "com.google.code.gson:gson:${Versions.gsonVersion}"
 
 
 }

@@ -30,6 +30,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Dependencies.kotlin
 
+    //Gson
+    implementation Dependencies.gsonConverter
+
     // Testing
     testImplementation Dependencies.junit
     androidTestImplementation  Dependencies.androidxTestRunner

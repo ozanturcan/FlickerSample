@@ -2,7 +2,6 @@ package com.penguinlab.data.di.module
 
 import com.penguinlab.data.BuildConfig
 import com.penguinlab.data.remote.FlickerSampleRestInterface
-import com.penguinlab.data.remote.interceptor.RequestInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -27,12 +26,10 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        requestInterceptor: RequestInterceptor
+        loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .addInterceptor(requestInterceptor)
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()

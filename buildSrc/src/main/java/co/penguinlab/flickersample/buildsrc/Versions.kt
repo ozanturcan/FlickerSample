@@ -29,5 +29,6 @@ object Versions {
     val fabricVersion = "2.0.0-beta03"
     val navigationComponentVersion = "2.1.0"
     val timberVersion = "4.7.1"
+    val gsonVersion = "2.8.6"
 
 }

@@ -9,7 +9,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -29,20 +28,13 @@ fun <T : ViewDataBinding> ViewGroup?.inflate(
     )
 }
 
-/**
- * https://blog.danlew.net/2015/03/02/dont-break-the-chain/
- */
-fun <T> applyLoading(): ObservableTransformer<Resource<T>, Resource<T>> =
-    ObservableTransformer { upstream ->
-        Observable.just(Resource.loading<T>()).concatWith(upstream)
-    }
-
-fun <T> Observable<Resource<T>>.doOnSuccess(function: (Resource<T>) -> Unit): Observable<Resource<T>> {
-    return this.map {
-        if (it.status == Status.SUCCESS) {
-            function(it)
+fun <T> Observable<Resource<T>>.doOnSuccess(
+    onSuccess: (T) -> (Unit)
+): Observable<Resource<T>> {
+    return this.doOnNext {
+        if (it is Resource.Success) {
+            onSuccess(it.data)
         }
-        return@map it
     }
 }
 
