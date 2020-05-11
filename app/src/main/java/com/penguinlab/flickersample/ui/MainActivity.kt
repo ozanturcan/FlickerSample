@@ -15,6 +15,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         savedInstanceState.runIfNull {
+            viewModel.fetchRecentPhoto(1)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.penguinlab.flickersample.di.component
 
 import android.content.Context
+import com.penguinlab.data.di.module.DataModule
 import com.penguinlab.flickersample.FlickerApplication
 import com.penguinlab.flickersample.di.module.ActivityBuilderModule
 import com.penguinlab.flickersample.di.module.ViewModelModule
@@ -15,7 +16,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ActivityBuilderModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        DataModule::class
     ]
 )
 interface AppComponent : AndroidInjector<FlickerApplication> {
