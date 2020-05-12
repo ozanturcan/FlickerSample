@@ -4,8 +4,7 @@ import dagger.Module
 
 @Module(
     includes = [
-        NetworkModule::class,
-        CacheModule::class
+        NetworkModule::class
     ]
 )
 class DataModule
