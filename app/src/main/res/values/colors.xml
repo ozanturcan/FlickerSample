@@ -13,4 +13,7 @@
     <color name="colorWhite900">#FFFFFF</color>
     <color name="colorBlack500">#1a1824</color>
     <color name="colorTransparentBlack200">#4A1D1D1D</color>
+
+    <color name="colorBlackAlpha">#80030303</color>
+    <color name="colorTransparent">#00030303</color>
 </resources>

@@ -1,6 +1,14 @@
 package com.penguinlab.flickersample.di.module
 
+import com.penguinlab.flickersample.di.scope.FragmentScope
+import com.penguinlab.flickersample.ui.getrecent.RecentFeedFragment
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class FragmentBuilderModule
+interface FragmentBuilderModule {
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    fun bindRecentFeedFragment(): RecentFeedFragment
+}

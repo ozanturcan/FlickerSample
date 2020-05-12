@@ -9,7 +9,9 @@ interface FlickerSampleRestInterface {
 
     @GET("rest")
     fun fetchRecentPhoto(
+
         @Query("page") page: Int,
+        @Query("api_key") apiKey: String? = "d4f26c71e3432baebb7db9e9594a7a29",
         @Query("method") method: String? = "flickr.photos.getRecent",
         @Query("format") format: String? = "json",
         @Query("nojsoncallback") noJsonCallback: Int? = 1,

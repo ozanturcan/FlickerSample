@@ -1,9 +1,12 @@
 package com.penguinlab.common.ui
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.penguinlab.common.R
+
 
 object ImageBindingAdapter {
 
@@ -11,9 +14,22 @@ object ImageBindingAdapter {
     @BindingAdapter("imageUrl")
     fun setUrl(imageView: ImageView, imageUrl: String?) {
         Glide.with(imageView.context)
-            .load("https://image.tmdb.org/t/p/w500/$imageUrl")
+            .load("$imageUrl")
+            .error(R.drawable.ic_error_primary_24dp)
             .into(imageView)
     }
+
+    @JvmStatic
+    @BindingAdapter("imageUrl", "placeHolder")
+    fun setProfileUrl(imageView: ImageView, imageUrl: String?, placeHolder: Drawable) {
+        val glide = Glide.with(imageView.context)
+        glide.load("$imageUrl")
+            .placeholder(placeHolder)
+            .error(R.drawable.ic_error_primary_24dp)
+            .circleCrop()
+            .into(imageView)
+    }
+
 
     @JvmStatic
     @BindingAdapter("visibleIf")
