@@ -33,6 +33,7 @@ dependencies {
 
 
     implementation Dependencies.kotlin
+    implementation Dependencies.androidCore
     implementation Dependencies.appcompat
     implementation Dependencies.material
 
@@ -49,7 +50,8 @@ dependencies {
     //Glide
     implementation  Dependencies.glide
 
-    implementation "androidx.core:core-ktx:1.2.0"
+    // Timber Logging
+    api Dependencies.timber
 
     // Testing
     testImplementation Dependencies.junit

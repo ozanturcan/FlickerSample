@@ -1,4 +1,4 @@
-package com.penguinlab.flickersample.ui
+package com.penguinlab.flickersample.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import com.penguinlab.flickersample.R
+import com.penguinlab.flickersample.ui.MainActivity
 
 
 class SplashActivity : AppCompatActivity() {

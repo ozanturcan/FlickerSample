@@ -80,9 +80,6 @@ dependencies {
     implementation Dependencies.navigationUi
     implementation Dependencies.navigationRuntime
 
-    // Timber Logging
-    implementation Dependencies.timber
-
     // Testing
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.androidxTestRunner

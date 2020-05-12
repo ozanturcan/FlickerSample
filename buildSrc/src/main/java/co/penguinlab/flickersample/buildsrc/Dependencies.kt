@@ -32,6 +32,8 @@ object Dependencies {
         "com.google.firebase:firebase-analytics:${Versions.firebaseAnalyticsVersion}"
     val firebaseCrashlytics =
         "com.google.firebase:firebase-crashlytics:${Versions.crashlyticsVersion}"
+    val firebaseRemoteConfig =
+        "com.google.firebase:firebase-config:${Versions.firebaseConfigVersion}"
     val navigationFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponentVersion}"
     val navigationUi =

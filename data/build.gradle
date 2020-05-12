@@ -43,6 +43,8 @@ dependencies {
 
     // Firebase
     implementation Dependencies.firebaseCrashlytics
+    implementation Dependencies.firebaseAnalytics
+    implementation Dependencies.firebaseRemoteConfig
 
     // Retrofit & Gson.
     implementation Dependencies.retrofit
