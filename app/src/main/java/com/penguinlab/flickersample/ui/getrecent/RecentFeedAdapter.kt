@@ -6,12 +6,9 @@ import com.penguinlab.common.inflate
 import com.penguinlab.flickersample.R
 import com.penguinlab.flickersample.databinding.PhotoItemBinding
 import com.penguinlab.model.PhotoItem
-import javax.inject.Inject
 
-//todo gereksiz ise inject kaldir
 
-class RecentFeedAdapter @Inject constructor() :
-    RecyclerView.Adapter<RecentFeedAdapter.RecentPhotoFeedItemViewHolder>() {
+class RecentFeedAdapter : RecyclerView.Adapter<RecentFeedAdapter.RecentPhotoFeedItemViewHolder>() {
 
     private var recentPhotoList: MutableList<PhotoItem> = mutableListOf()
 
