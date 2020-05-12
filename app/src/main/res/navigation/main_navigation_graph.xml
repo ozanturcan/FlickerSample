@@ -9,5 +9,21 @@
         android:id="@+id/recentFeedFragment"
         android:name="com.penguinlab.flickersample.ui.getrecent.RecentFeedFragment"
         android:label="RecentFeedFragment"
-        tools:layout="@layout/recent_feed_fragment" />
+        tools:layout="@layout/recent_feed_fragment">
+        <action
+            android:id="@+id/action_recentFeedFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailFragment"
+        android:name="com.penguinlab.flickersample.ui.detail.ImageDetailFragment"
+        android:label="ImageDetailFragment"
+        tools:layout="@layout/image_detail_fragment">
+        <argument
+            android:name="photoUrlObject"
+            app:argType="string" />
+    </fragment>
 </navigation>

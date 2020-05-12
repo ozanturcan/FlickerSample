@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.penguinlab.common.observeNonNull
 import com.penguinlab.common.runIfNull
@@ -17,7 +19,7 @@ class RecentFeedFragment : BaseFragment<RecentFeedFragmentBinding, RecentFeedVie
 
     override val viewModelClass: Class<RecentFeedViewModel> = RecentFeedViewModel::class.java
     override val layoutRes: Int = R.layout.recent_feed_fragment
-    private var recentFeedAdapter = RecentFeedAdapter()
+    private var recentFeedAdapter = RecentFeedAdapter().apply { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +52,16 @@ class RecentFeedFragment : BaseFragment<RecentFeedFragmentBinding, RecentFeedVie
     private fun initPopularTVShowsRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(context)
         binding.recyclerView.apply {
-            adapter = recentFeedAdapter
+            adapter = recentFeedAdapter.apply {
+                listener = object : RecentFeedAdapter.ItemClickListener {
+                    override fun onItemClick(view: View, photoUrl: String) {
+                        findNavController().navigate(
+                            R.id.action_recentFeedFragment_to_imageDetailFragment
+                            , bundleOf("PhotoUrlObject" to photoUrl)
+                        )
+                    }
+                }
+            }
             layoutManager = linearLayoutManager
             addOnScrollListener(object : EndlessScrollListener(linearLayoutManager) {
                 override fun onLoadMore(page: Int) {

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.penguinlab.flickersample.di.ViewModelFactory
 import com.penguinlab.flickersample.di.key.ViewModelKey
 import com.penguinlab.flickersample.ui.MainActivityViewModel
+import com.penguinlab.flickersample.ui.detail.ImageDetailViewModel
 import com.penguinlab.flickersample.ui.getrecent.RecentFeedViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,6 +23,11 @@ interface ViewModelModule {
     @Binds
     @ViewModelKey(RecentFeedViewModel::class)
     fun provideRecentFeedViewModel(recentFeedViewModel: RecentFeedViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(ImageDetailViewModel::class)
+    fun provideImageDetailViewModel(imageDetailViewModel: ImageDetailViewModel): ViewModel
 
 
     @Binds

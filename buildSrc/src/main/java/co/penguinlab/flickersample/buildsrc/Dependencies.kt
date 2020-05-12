@@ -1,6 +1,6 @@
 object Dependencies {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
-    val androidCore = " androidx.core:core-ktx:${Versions.androidCoreVersion}"
+    val androidCore = "androidx.core:core-ktx:${Versions.androidCoreVersion}"
     val appcompat = "androidx.appcompat:appcompat:${Versions.appcompatVersion}"
     val junit = "junit:junit:${Versions.junitVersion}"
     val androidxTestRunner = "androidx.test:runner:${Versions.androidxTestRunnerVersion}"

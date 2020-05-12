@@ -38,6 +38,7 @@ dependencies {
     implementation project(':domain')
 
     implementation Dependencies.kotlin
+    implementation Dependencies.androidCore
     implementation Dependencies.appcompat
     implementation Dependencies.material
     implementation Dependencies.constraintLayout
