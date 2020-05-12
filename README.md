@@ -22,3 +22,8 @@ a simple app that contains some basic functionality. It connects to the "flickr.
 - keep Activity only responsible for UI related code 
 - ViewModel provides data required by the UI class
 - Repository layer provides data to ViewModel classes. (single source of truth)
+
+
+<img src="app/screenshot/screen_shot_0.jpeg" width="40%">
+<img src="app/screenshot/screen_shot_1.jpeg" width="40%">
+<img src="app/screenshot/screen_shot_2.jpeg" width="40%">
