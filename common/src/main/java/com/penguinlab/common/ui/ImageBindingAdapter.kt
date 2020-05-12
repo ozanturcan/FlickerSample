@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.penguinlab.common.R
 
 
@@ -15,6 +16,7 @@ object ImageBindingAdapter {
     fun setUrl(imageView: ImageView, imageUrl: String?) {
         Glide.with(imageView.context)
             .load("$imageUrl")
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .error(R.drawable.ic_error_primary_24dp)
             .into(imageView)
     }
@@ -25,6 +27,7 @@ object ImageBindingAdapter {
         val glide = Glide.with(imageView.context)
         glide.load("$imageUrl")
             .placeholder(placeHolder)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .error(R.drawable.ic_error_primary_24dp)
             .circleCrop()
             .into(imageView)
