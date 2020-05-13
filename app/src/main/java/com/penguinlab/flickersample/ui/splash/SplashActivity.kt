@@ -1,27 +1,42 @@
 package com.penguinlab.flickersample.ui.splash
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
 import androidx.core.view.ViewPropertyAnimatorListener
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.penguinlab.flickersample.R
+import com.penguinlab.flickersample.databinding.ActivitySplashBinding
 import com.penguinlab.flickersample.ui.MainActivity
+import com.penguinlab.flickersample.ui.base.BaseActivity
+import javax.inject.Inject
 
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewModel>() {
+    override val viewModelClass: Class<SplashActivityViewModel> =
+        SplashActivityViewModel::class.java
+    override val layoutRes: Int = R.layout.activity_splash
+
+    @Inject
+    lateinit var firebaseRemoteConfig: FirebaseRemoteConfig
+
     private val animationStarted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-        setTheme(R.style.AppTheme)
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        supportActionBar?.hide()
+        fetchRemoteConfigParameters()
+    }
+
+    private fun fetchRemoteConfigParameters() {
+        viewModel.fetchRemoteConfigParameters()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -47,7 +62,8 @@ class SplashActivity : AppCompatActivity() {
             viewAnimator.setInterpolator(DecelerateInterpolator())
                 .setListener(object : ViewPropertyAnimatorListener {
                     override fun onAnimationEnd(view: View?) {
-                        this@SplashActivity.moveForward()
+//                        this@SplashActivity.moveForward()
+                        showForceUpdateDialog()
                     }
 
                     override fun onAnimationCancel(view: View?) {
@@ -71,5 +87,32 @@ class SplashActivity : AppCompatActivity() {
             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
         startActivity(intent)
         finish()
+    }
+
+
+    fun showForceUpdateDialog() {
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
+            ContextThemeWrapper(
+                this,
+                android.R.style.Theme_DeviceDefault_Dialog_Alert
+            )
+        )
+        alertDialogBuilder.setTitle("context.getString(R.string.youAreNotUpdatedTitle)")
+        alertDialogBuilder.setMessage(
+            ""
+        )
+        alertDialogBuilder.setCancelable(false)
+        alertDialogBuilder.setPositiveButton(
+            android.R.string.ok,
+            DialogInterface.OnClickListener { dialog, id ->
+                this.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=" + this.packageName)
+                    )
+                )
+                dialog.cancel()
+            })
+        alertDialogBuilder.show()
     }
 }

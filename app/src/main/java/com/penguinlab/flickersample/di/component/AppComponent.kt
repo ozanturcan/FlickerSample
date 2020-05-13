@@ -1,6 +1,6 @@
 package com.penguinlab.flickersample.di.component
 
-import android.content.Context
+import android.app.Application
 import com.penguinlab.data.di.module.DataModule
 import com.penguinlab.flickersample.FlickerApplication
 import com.penguinlab.flickersample.di.module.ActivityBuilderModule
@@ -23,6 +23,6 @@ import javax.inject.Singleton
 interface AppComponent : AndroidInjector<FlickerApplication> {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): AndroidInjector<FlickerApplication>
+        fun create(@BindsInstance context: Application): AndroidInjector<FlickerApplication>
     }
 }

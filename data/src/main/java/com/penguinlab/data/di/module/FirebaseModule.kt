@@ -1,14 +1,12 @@
 package com.penguinlab.data.di.module
 
 import android.app.Application
-import androidx.annotation.NonNull
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.penguinlab.common.ForceUpdateDef
 import dagger.Module
 import dagger.Provides
-import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -17,8 +15,8 @@ class FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAnalytics(@NonNull application: Application): FirebaseAnalytics {
-        return FirebaseAnalytics.getInstance(application)
+    fun provideFirebaseAnalytics(application: Application): FirebaseAnalytics {
+        return FirebaseAnalytics.getInstance(application.applicationContext)
     }
 
     @Provides
@@ -26,20 +24,11 @@ class FirebaseModule {
     fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
 
         val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
-
-        setDefaultValueMap(firebaseRemoteConfig)
-
-        firebaseRemoteConfig.fetch(600) // fetch every 10 minutes
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Timber.d("remote config is fetched.")
-                    firebaseRemoteConfig.fetchAndActivate()
-                }
-            }
-
         val configSettings = FirebaseRemoteConfigSettings.Builder()
             .setMinimumFetchIntervalInSeconds(3600)
             .build()
+
+        setDefaultValueMap(firebaseRemoteConfig)
         firebaseRemoteConfig.setConfigSettingsAsync(configSettings)
 
         return firebaseRemoteConfig
