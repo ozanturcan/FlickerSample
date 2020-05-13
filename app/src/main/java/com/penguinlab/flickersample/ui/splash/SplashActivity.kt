@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.penguinlab.common.observeNonNull
+import com.penguinlab.common.ui.Util
 import com.penguinlab.flickersample.R
 import com.penguinlab.flickersample.databinding.ActivitySplashBinding
 import com.penguinlab.flickersample.ui.MainActivity
@@ -32,6 +34,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fetchRemoteConfigParameters()
+
     }
 
     private fun fetchRemoteConfigParameters() {
@@ -61,9 +64,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
             viewAnimator.setInterpolator(DecelerateInterpolator())
                 .setListener(object : ViewPropertyAnimatorListener {
                     override fun onAnimationEnd(view: View?) {
-//                        this@SplashActivity.moveForward()
+                        viewModel.remoteModel_.observeNonNull(this@SplashActivity) { remoteModel ->
+                            if (Util.CheckNewVersionAvailable(remoteModel.versionOnGooglePlay)) {
+                                showForceUpdateDialog(
+                                    this@SplashActivity,
+                                    remoteModel.isForceUpdateRequired
+                                )
+                            } else {
+                                this@SplashActivity.moveForward()
+                            }
+
+                        }
                         animationStarted = true
-                        showForceUpdateDialog(this@SplashActivity)
                     }
 
                     override fun onAnimationCancel(view: View?) {
@@ -85,8 +97,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
         finish()
     }
 
-    fun showForceUpdateDialog(context: Context) {
-        AlertDialog.Builder(this)
+    private fun showForceUpdateDialog(context: Context, isForceUpdateRequired: Boolean) {
+        val alertDialog = AlertDialog.Builder(this)
             .setTitle(context.getString(R.string.info))
             .setMessage(context.getString(R.string.new_version_of_app_available))
             .setCancelable(false)
@@ -99,10 +111,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
                 )
                 dialog.cancel()
             }
-            .setNegativeButton(android.R.string.cancel) { dialog, id ->
-                moveForward()
+        if (!isForceUpdateRequired) {
+            alertDialog.setNegativeButton(android.R.string.cancel) { dialog, id ->
+                this@SplashActivity.moveForward()
                 dialog.cancel()
-            }.show()
+            }
+        }
+        alertDialog.show()
     }
 
     companion object {

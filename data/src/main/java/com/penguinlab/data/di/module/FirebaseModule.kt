@@ -39,7 +39,7 @@ class FirebaseModule {
         val defaults: MutableMap<String, Any> = mutableMapOf()
         defaults[ForceUpdateDef.KEY_STORE_URL] = "http://"
         defaults[ForceUpdateDef.KEY_CURRENT_VERSION] = "1"
-        defaults[ForceUpdateDef.KEY_UPDATE_ENABLED] = true
+        defaults[ForceUpdateDef.KEY_FORCE_UPDATE_REQUIRED] = true
 
         config.setDefaultsAsync(defaults as Map<String, Any>)
     }
