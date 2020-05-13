@@ -3,4 +3,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="info">Bilgilendirme</string>
+    <string name="new_version_of_app_available">Lütfen uygulamanızın güncel versiyonunu yükleyiniz.</string>
 </resources>

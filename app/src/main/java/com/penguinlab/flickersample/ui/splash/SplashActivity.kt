@@ -1,6 +1,6 @@
 package com.penguinlab.flickersample.ui.splash
 
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
 import androidx.core.view.ViewPropertyAnimatorListener
@@ -28,7 +27,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
     @Inject
     lateinit var firebaseRemoteConfig: FirebaseRemoteConfig
 
-    private val animationStarted = false
+    private var animationStarted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,22 +62,19 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
                 .setListener(object : ViewPropertyAnimatorListener {
                     override fun onAnimationEnd(view: View?) {
 //                        this@SplashActivity.moveForward()
-                        showForceUpdateDialog()
+                        animationStarted = true
+                        showForceUpdateDialog(this@SplashActivity)
                     }
 
                     override fun onAnimationCancel(view: View?) {
                     }
 
                     override fun onAnimationStart(view: View?) {
+                        animationStarted = true
                     }
 
                 }).start()
         }
-    }
-
-    companion object {
-        const val STARTUP_DELAY = 500
-        const val ANIM_ITEM_DURATION = 2500
     }
 
     private fun moveForward() {
@@ -89,22 +85,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
         finish()
     }
 
-
-    fun showForceUpdateDialog() {
-        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
-            ContextThemeWrapper(
-                this,
-                android.R.style.Theme_DeviceDefault_Dialog_Alert
-            )
-        )
-        alertDialogBuilder.setTitle("context.getString(R.string.youAreNotUpdatedTitle)")
-        alertDialogBuilder.setMessage(
-            ""
-        )
-        alertDialogBuilder.setCancelable(false)
-        alertDialogBuilder.setPositiveButton(
-            android.R.string.ok,
-            DialogInterface.OnClickListener { dialog, id ->
+    fun showForceUpdateDialog(context: Context) {
+        AlertDialog.Builder(this)
+            .setTitle(context.getString(R.string.info))
+            .setMessage(context.getString(R.string.new_version_of_app_available))
+            .setCancelable(false)
+            .setPositiveButton(android.R.string.ok) { dialog, id ->
                 this.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
@@ -112,7 +98,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashActivityViewMod
                     )
                 )
                 dialog.cancel()
-            })
-        alertDialogBuilder.show()
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, id ->
+                moveForward()
+                dialog.cancel()
+            }.show()
     }
+
+    companion object {
+        const val STARTUP_DELAY = 500
+        const val ANIM_ITEM_DURATION = 2500
+    }
+
 }
